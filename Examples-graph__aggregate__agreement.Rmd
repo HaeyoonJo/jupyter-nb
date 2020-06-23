@@ -1,0 +1,78 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.5.0
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
+```{python}
+# %autosave 0
+```
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+## Grouping and generating to Graph using 
+
+```{python}
+df_graph = pd.DataFrame({
+    'regiment': ['Nighthawks', 'Nighthawks', 'Nighthawks', 'Nighthawks', 'Dragoons', 'Dragoons', 'Dragoons', 'Dragoons', 'Scouts', 'Scouts', 'Scouts', 'Scouts'],
+    'bucket': ['0', '1', '0', '0', '1', '1', '0', '0','0', '1', '2', '2'],
+    'name': ['Miller', 'Jacobson', 'Ali', 'Milner', 'Cooze', 'Jacon', 'Ryaner', 'Sone', 'Sloan', 'Piger', 'Riani', 'Ali'],
+    'clicks': [4, 24, 31, 2, 3, 4, 24, 31, 2, 3, 2, 3],
+    'impressions': [25, 94, 57, 62, 70, 25, 94, 57, 62, 70, 62, 70]
+})
+df_graph
+```
+
+```{python}
+groupbyregimentbucket = df_graph.groupby(['regiment', 'bucket'])
+print('[Grouping by regiment and bucket, and aggregating #of clicks]')
+print(groupbyregimentbucket['clicks'].aggregate(np.sum))
+```
+
+```{python}
+print('[unstacking]')
+regimentbucketclicksum = groupbyregimentbucket['clicks'].aggregate(np.sum).unstack()
+print(regimentbucketclicksum)
+```
+
+```{python}
+regimentbucketclicksum.plot(kind = 'bar', title = ' by Regiment, Bucket')
+plt.ylabel('clicks')
+plt.show()
+```
+
+## Grouping by title and find matched value
+
+- this test example used in order to extract agreement level for spir. data as below:
+
+Spir..-model/jupyter-notebook/Spir..-agreement.ipynb#Extract-Agreement
+
+```{python}
+def grouping_fnc(x):
+    result = [i for i in x['category_1']]
+    result = list(set(result))
+    return 1 if len(result) > 1 else 0
+```
+
+```{python}
+df_grouping = pd.DataFrame({
+    'category_1': [1, 1, 2, 2, 3, 2, 4, 4],
+    'category_2': ['100000009', '100000009', '100000009', '100000009', '100000009','100000034','100000034', '100000034'],
+    'number': [12, 13, 12, 13, 12, 11, 12, 13],
+    'title': ['red', 'red', 'green','green','red1','red1','red2','red2']
+})
+result = df_grouping.groupby('title', group_keys=False).apply(grouping_fnc)
+result
+```
