@@ -1,0 +1,182 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.5.0
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
+```{python}
+# %autosave 0
+```
+
+```{python}
+import pandas as pd
+import numpy as np
+```
+
+```{python}
+drinks = pd.read_csv('drinks.csv')
+type(drinks)
+```
+
+```{python}
+drinks
+```
+
+```{python}
+'''
+If we wanna see only 'drinks', it shows too many.
+So, using head() to simplify in few lines.
+'''
+drinks.head()
+```
+
+```{python}
+drinks.tail()
+```
+
+```{python}
+drinks.describe()    # describe any numeric columns
+```
+
+```{python}
+drinks.columns      # get series of column names
+```
+
+```{python}
+dictionary = {'a' : [1, 2], 'b' : [3, 4]}      # hash with key : value
+pd.DataFrame(dictionary)
+```
+
+```{python}
+drinks.shape                                   # tuple of (#rows, #cols)
+```
+
+```{python}
+#dirnks['beer_accuracy'] = drinks.beer_servings / drinks.total_litres_of_pure_alcohol
+drinks[['country', 'beer_servings', 'total_litres_of_pure_alcohol']].head(10)
+```
+
+```{python}
+# find missing values in a DataFrame
+drinks.isnull()                                 # DataFrame of booleans
+drinks.isnull().sum()                           # convert booleans to integers and add
+```
+
+```{python}
+drinks[drinks['continent'].isnull()]
+```
+
+```{python}
+drinks.dropna()
+drinks.fillna(value='HI')
+```
+
+```{python}
+drinks.head(10)
+```
+
+```{python}
+drinks = pd.read_csv('https://raw.githubusercontent.com/sinanuozdemir/sfdat28/master/data/drinks.csv', na_filter = False)
+drinks.isnull().sum()
+```
+
+```{python}
+drinks['continent']
+# drinks.continent   # equivalent
+```
+
+```{python}
+type(drinks.continent)
+```
+
+```{python}
+drinks.continent.describe()
+```
+
+```{python}
+drinks.continent.value_counts()
+```
+
+```{python}
+col = ['country', 'beer_servings']
+drinks[col].head(10)
+```
+
+```{python}
+drinks['tot_servings'] = drinks.beer_servings + drinks.spirit_servings + drinks.wine_servings
+drinks.head()
+```
+
+```{python}
+drinks.continent=='EU'
+drinks[drinks.continent=='EU'].head()
+```
+
+```{python}
+new_df = drinks[['country', 'tot_servings']]
+new_df
+```
+
+```{python}
+drinks[['country', 'tot_servings']][drinks.continent=='EU'].sort_values(by='tot_servings' , asc)
+```
+
+```{python}
+drinks[(drinks.wine_se rvings > 300) & (drinks.total_litres_of_pure_alcohol > 12)]
+```
+
+```{python}
+drinks.wine_servings > drinks.beer_servings
+```
+
+```{python}
+drinks.sort_values(by='beer_servings').tail(6)
+```
+
+#### Quiz
+
+1. List conturies that drink more spirits than beer on average
+
+2. What are the top three beer drinking countries?
+
+3. What are the top three beer drinking countries in Europe?
+
+```{python}
+# Q1. List counturies that drink more spirits than beer on average
+quiz_1 = drinks[drinks.spirit_servings > drinks.beer_servings]
+quiz_1
+```
+
+```{python}
+# Export DataFrame to csv file as quiz_1.csv
+df = pd.DataFrame(quiz_1)
+df.to_csv('quiz_1.csv')
+```
+
+```{python}
+# Q2. What are the top three beer drinking counturies?
+top_beer_contury = drinks.sort_values(by='beer_servings', ascending=False)
+top_beer_contury.head(3)
+```
+
+```{python}
+df = pd.DataFrame(top_beer_contury.head(3))
+df.to_csv('quiz_2.csv')
+```
+
+```{python}
+# Q3. What are the top three beer drinking counturies in Europe?
+
+```
+
+```{python}
+
+```
