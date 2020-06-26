@@ -24,7 +24,7 @@ When you git commit and push Jupyter notebooks, the disadvantages are the follow
 
 Once you create a notebook, it will look like that as below:
 
-![jupyter-notebook](ipynb_img.png =250x250)
+![jupyter-notebook](ipynb_img.png)
 
 The matter is that the file has metadata, source code, etc then the committed file will appear as JSON format
 ```
