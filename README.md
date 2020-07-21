@@ -117,6 +117,12 @@ add `*.ipynb` into `.gitignore`.
 
 - Note that probably you can see `.ipynb_checkpoints` in the same path. you can refer to Stackoverflow, what's ipynb_checkpoints on this [page](https://stackoverflow.com/questions/36306017/should-ipynb-checkpoints-be-stored-in-git/39997938) and how to git ignore on this [page](https://stackoverflow.com/questions/35916658/how-to-git-ignore-ipython-notebook-checkpoints-anywhere-in-repository).
 
+### 3. The way to convert to .ipynb from .Rmd
+
+1. Open a pulled `.rmd` file up and then save the nb file
+
+2. Then you'll see `.ipynb` has created in the same directory where the `.rmd` file exists
+
 ---
 
 #### references:
